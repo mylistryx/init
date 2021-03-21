@@ -16,7 +16,12 @@ trait IdentityTrait
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(
+            [
+                'id'     => $id,
+                'status' => self::STATUS_ACTIVE,
+            ]
+        );
     }
 
     /**
@@ -24,19 +29,26 @@ trait IdentityTrait
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        /** ToDo: Fix to access-token */
-        return self::findOne(['username' => $token]);
+        return self::findOne(
+            [
+                'access_token' => $token,
+            ]
+        );
     }
 
     /**
-     * Finds user by username
+     * Finds user by email
      *
-     * @param string $username
+     * @param string $email
      * @return static|null
      */
-    public static function findByUsername(string $username): ?User
+    public static function findByEmail(string $email): ?User
     {
-        return static::findOne(['username' => $username]);
+        return static::findOne(
+            [
+                'email' => $email,
+            ]
+        );
     }
 
     /**

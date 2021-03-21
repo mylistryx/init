@@ -44,9 +44,9 @@ use yii\web\View;
             [
                 'label'       => Yii::t(
                     'app.menu',
-                    'Logout ({username})',
+                    'Logout ({email})',
                     [
-                        'username' => Yii::$app->user->isGuest ? '' : Yii::$app->user->identity->username,
+                        'email' => Yii::$app->user->isGuest ? '' : Yii::$app->user->identity->email,
                     ]
                 ),
                 'visible'     => !Yii::$app->user->isGuest,

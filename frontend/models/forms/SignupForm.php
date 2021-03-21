@@ -14,9 +14,8 @@ use common\models\User;
  */
 class SignupForm extends Model
 {
-    public $username;
-    public $email;
-    public $password;
+    public string $email = '';
+    public string $password = '';
 
 
     /**
@@ -25,11 +24,6 @@ class SignupForm extends Model
     public function rules(): array
     {
         return [
-            ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => User::class, 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
-
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
@@ -38,6 +32,17 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'email'    => Yii::t('form.signup', 'Email'),
+            'password' => Yii::t('form.signup', 'Password'),
         ];
     }
 
@@ -54,11 +59,11 @@ class SignupForm extends Model
         }
 
         $user = new User();
-        $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
+        $user->generateAccessToken();
         return $user->save() && $this->sendEmail($user);
     }
 
