@@ -1,5 +1,6 @@
 <?php
 
+use yii\i18n\PhpMessageSource;
 use yii\log\FileTarget;
 
 $params = array_merge(
@@ -11,6 +12,8 @@ $params = array_merge(
 
 return [
     'id'                  => 'app-frontend',
+    'language'            => 'ru',
+//    'charset'             => 'UTF-8',
     'basePath'            => dirname(__DIR__),
     'bootstrap'           => ['log'],
     'controllerNamespace' => 'frontend\controllers',
@@ -28,6 +31,19 @@ return [
         'session'      => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
+        ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => PhpMessageSource::class,
+                    'basePath' => '@frontend/messages',
+                    'sourceLanguage' => 'en-US',
+//                    'fileMap' => [
+//                        'app'       => 'app.php',
+//                        'app/error' => 'error.php',
+//                    ],
+                ],
+            ],
         ],
         'log'          => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

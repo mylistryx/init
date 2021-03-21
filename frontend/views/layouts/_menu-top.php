@@ -29,8 +29,8 @@ use yii\web\View;
                 'items' => array_map(
                     function ($code) {
                         return [
-                            'label'  => Yii::$app->params['availableLocales'][$code],
-                            'url'    => ['/site/set-locale', 'locale' => $code],
+                            'label'  => $code,
+                            'url'    => ['/site/language', 'locale' => Yii::$app->params['availableLocales'][$code]],
                             'active' => Yii::$app->language === $code,
                         ];
                     },

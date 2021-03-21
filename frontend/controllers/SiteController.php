@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace frontend\controllers;
 
+use common\components\Actions\LanguageAction;
 use frontend\models\forms\ContactForm;
 use frontend\models\forms\PasswordResetRequestForm;
 use frontend\models\forms\ResendVerificationEmailForm;
@@ -63,13 +64,14 @@ final class SiteController extends Controller
     public function actions(): array
     {
         return [
-            'error'   => [
+            'error'    => [
                 'class' => ErrorAction::class,
             ],
-            'captcha' => [
+            'captcha'  => [
                 'class'           => CaptchaAction::class,
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'language' => LanguageAction::class,
         ];
     }
 

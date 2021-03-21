@@ -36,6 +36,18 @@ class LoginForm extends Model
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'username'   => Yii::t('app', 'Username'),
+            'password'   => Yii::t('app', 'Password'),
+            'rememberMe' => Yii::t('app', 'Remember me'),
+        ];
+    }
+
     public function validateStatus(string $attribute)
     {
         if (!$this->hasErrors()) {
