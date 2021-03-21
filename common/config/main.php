@@ -9,8 +9,9 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
-        'cache'      => [
+        'cache' => [
             'class' => FileCache::class,
         ],
+        'i18n'  => require __DIR__ . '/i18n.php',
     ],
 ];

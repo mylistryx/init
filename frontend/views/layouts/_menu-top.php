@@ -32,12 +32,12 @@ use yii\web\View;
             ['label' => Yii::t('app.menu', 'Signup'), 'url' => ['/site/signup'], 'visible' => Yii::$app->user->isGuest],
             ['label' => Yii::t('app.menu', 'Login'), 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
             [
-                'label'   => Yii::t('app.menu','Settings'),
+                'label'   => Yii::t('app.menu', 'Settings'),
                 'visible' => !Yii::$app->user->isGuest,
                 'items'   => [
                     [
-                        'label'       => Yii::t('app.menu', 'Profile'),
-                        'url'         => ['/site/profile'],
+                        'label' => Yii::t('app.menu', 'Profile'),
+                        'url'   => ['/site/profile'],
                     ],
                 ],
             ],
@@ -46,10 +46,10 @@ use yii\web\View;
                     'app.menu',
                     'Logout ({username})',
                     [
-                        'username' => Yii::$app->user->identity->username,
+                        'username' => Yii::$app->user->isGuest ? '' : Yii::$app->user->identity->username,
                     ]
                 ),
-                'visible' => !Yii::$app->user->isGuest,
+                'visible'     => !Yii::$app->user->isGuest,
                 'url'         => ['/site/logout'],
                 'linkOptions' => ['data-method' => 'post'],
             ],
