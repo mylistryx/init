@@ -3,6 +3,7 @@
  * @var View $this
  */
 
+use common\widgets\LanguageDropdown;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use yii\web\View;
@@ -21,33 +22,34 @@ use yii\web\View;
     [
         'options' => ['class' => ['navbar-nav', 'ml-auto']],
         'items'   => [
-            ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
-            ['label' => Yii::t('app', 'About'), 'url' => ['/site/about']],
-            ['label' => Yii::t('app', 'Contact'), 'url' => ['/site/contact']],
+            ['label' => Yii::t('app.menu', 'Home'), 'url' => ['/site/index']],
+            ['label' => Yii::t('app.menu', 'About'), 'url' => ['/site/about']],
+            ['label' => Yii::t('app.menu', 'Contact'), 'url' => ['/site/contact']],
             [
-                'label' => Yii::t('app', 'Language'),
-                'items' => array_map(
-                    function ($code) {
-                        return [
-                            'label'  => $code,
-                            'url'    => ['/site/language', 'locale' => Yii::$app->params['availableLocales'][$code]],
-                            'active' => Yii::$app->language === $code,
-                        ];
-                    },
-                    array_keys(Yii::$app->params['availableLocales'])
-                ),
+                'label' => Yii::t('app.menu', 'Language'),
+                'items' => LanguageDropdown::widget(),
             ],
-            ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup'], 'visible' => Yii::$app->user->isGuest],
-            ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
+            ['label' => Yii::t('app.menu', 'Signup'), 'url' => ['/site/signup'], 'visible' => Yii::$app->user->isGuest],
+            ['label' => Yii::t('app.menu', 'Login'), 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
             [
-                'label'       => Yii::$app->user->isGuest ? '' : Yii::t(
-                    'app',
+                'label'   => Yii::t('app.menu','Settings'),
+                'visible' => !Yii::$app->user->isGuest,
+                'items'   => [
+                    [
+                        'label'       => Yii::t('app.menu', 'Profile'),
+                        'url'         => ['/site/profile'],
+                    ],
+                ],
+            ],
+            [
+                'label'       => Yii::t(
+                    'app.menu',
                     'Logout ({username})',
                     [
                         'username' => Yii::$app->user->identity->username,
                     ]
                 ),
-                'visible'     => !Yii::$app->user->isGuest,
+                'visible' => !Yii::$app->user->isGuest,
                 'url'         => ['/site/logout'],
                 'linkOptions' => ['data-method' => 'post'],
             ],

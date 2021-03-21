@@ -1,5 +1,6 @@
 <?php
 
+use codemix\localeurls\UrlManager;
 use yii\i18n\PhpMessageSource;
 use yii\log\FileTarget;
 
@@ -12,8 +13,7 @@ $params = array_merge(
 
 return [
     'id'                  => 'app-frontend',
-    'language'            => 'ru',
-//    'charset'             => 'UTF-8',
+    'language'            => 'en',
     'basePath'            => dirname(__DIR__),
     'bootstrap'           => ['log'],
     'controllerNamespace' => 'frontend\controllers',
@@ -32,15 +32,33 @@ return [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
         ],
-        'i18n' => [
+        'i18n'         => [
             'translations' => [
                 'app*' => [
-                    'class' => PhpMessageSource::class,
-                    'basePath' => '@frontend/messages',
-                    'sourceLanguage' => 'en-US',
-//                    'fileMap' => [
-//                        'app'       => 'app.php',
-//                        'app/error' => 'error.php',
+                    'class'          => PhpMessageSource::class,
+                    'basePath'       => '@frontend/messages',
+                    'sourceLanguage' => 'en',
+                    'fileMap'        => [
+                        'app'      => 'app.php',
+                        'app.menu' => 'app.menu.php',
+                    ],
+                ],
+                'model*' => [
+                    'class'          => PhpMessageSource::class,
+                    'basePath'       => '@frontend/messages',
+                    'sourceLanguage' => 'en',
+//                    'fileMap'        => [
+//                        'app'      => 'app.php',
+//                        'app.menu' => 'app.menu.php',
+//                    ],
+                ],
+                'form*' => [
+                    'class'          => PhpMessageSource::class,
+                    'basePath'       => '@frontend/messages',
+                    'sourceLanguage' => 'en',
+//                    'fileMap'        => [
+//                        'app'      => 'app.php',
+//                        'app.menu' => 'app.menu.php',
 //                    ],
                 ],
             ],
@@ -58,6 +76,8 @@ return [
             'errorAction' => 'site/error',
         ],
         'urlManager'   => [
+            'class'           => UrlManager::class,
+            'languages'       => ['en', 'ru'],
             'enablePrettyUrl' => true,
             'showScriptName'  => false,
             'rules'           => require 'urlRules.php',
