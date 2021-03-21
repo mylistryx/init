@@ -19,9 +19,6 @@ class LoginForm extends Model
     public ?string $password = null;
     public bool $rememberMe = true;
 
-    private ?User $_user = null;
-
-
     /**
      * {@inheritdoc}
      */
@@ -34,7 +31,22 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            // status is validated by validateStatus
+            ['username', 'validateStatus'],
         ];
+    }
+
+    public function validateStatus(string $attribute)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+            if ($user->isDeleted()) {
+                $this->addError($attribute, Yii::t('app', 'This account was deleted.'));
+            }
+            if ($user->isInactive()) {
+                $this->addError($attribute, Yii::t('app', 'This account is inactive. Confirm email first!'));
+            }
+        }
     }
 
     /**
@@ -48,7 +60,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, Yii::t('app', 'Incorrect username or password.'));
             }
         }
     }
@@ -61,7 +73,7 @@ class LoginForm extends Model
     public function login(): bool
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? Yii::$app->params['user.rememberMeTimeout'] : 0);
         }
 
         return false;
@@ -74,10 +86,11 @@ class LoginForm extends Model
      */
     public function getUser(): ?User
     {
-        if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+        static $user;
+        if ($user === null) {
+            $user = User::findByUsername($this->username);
         }
 
-        return $this->_user;
+        return $user;
     }
 }

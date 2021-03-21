@@ -36,7 +36,7 @@ trait IdentityTrait
      */
     public static function findByUsername(string $username): ?User
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['username' => $username]);
     }
 
     /**

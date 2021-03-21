@@ -17,7 +17,21 @@ class AuthCest
         );
     }
 
-    public function userLogin(ApiTester $I)
+    public function userLoginFailed(ApiTester $I)
+    {
+        /** @var User $fixture */
+        $I->sendPost(
+            'site/login',
+            [
+                'username' => 'erau',
+                'password' => 'password_1',
+            ]
+        );
+        $I->seeResponseCodeIs(401);
+        $I->seeResponseIsJson();
+    }
+
+    public function userLoginSuccess(ApiTester $I)
     {
         /** @var User $fixture */
         $I->sendPost(

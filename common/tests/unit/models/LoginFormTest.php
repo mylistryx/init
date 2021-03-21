@@ -63,8 +63,9 @@ class LoginFormTest extends Unit
     {
         $model = new LoginForm(
             [
-                'username' => 'erau',
-                'password' => 'password_0',
+                'username'   => 'erau',
+                'password'   => 'password_0',
+                'rememberMe' => true,
             ]
         );
 

@@ -80,7 +80,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id'         => Yii::t('app', 'ID'),
@@ -98,6 +98,30 @@ class User extends ActiveRecord implements IdentityInterface
     public function fields(): array
     {
         return ['id', 'username', 'email', 'status', 'created_at', 'updated_at'];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted(): bool
+    {
+        return $this->status === self::STATUS_DELETED;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInactive(): bool
+    {
+        return $this->status === self::STATUS_INACTIVE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->status === self::STATUS_ACTIVE;
     }
 
 

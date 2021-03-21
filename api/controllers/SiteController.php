@@ -8,7 +8,7 @@ use common\models\forms\LoginForm;
 use common\models\User;
 use Yii;
 use yii\rest\Controller;
-use yii\web\ForbiddenHttpException;
+use yii\web\UnauthorizedHttpException;
 
 class SiteController extends Controller
 {
@@ -22,7 +22,7 @@ class SiteController extends Controller
 
     /**
      * @return User
-     * @throws ForbiddenHttpException
+     * @throws UnauthorizedHttpException
      */
     public function actionLogin(): User
     {
@@ -31,6 +31,6 @@ class SiteController extends Controller
             return $model->getUser();
         }
 
-        throw new ForbiddenHttpException('Invalid credentials');
+        throw new UnauthorizedHttpException('Invalid username or password');
     }
 }
