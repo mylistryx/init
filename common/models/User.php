@@ -158,4 +158,5 @@ class User extends ActiveRecord implements IdentityInterface, AggregateRootInter
         $user->recordEvent(new SignupRequestEvent($user));
         return $user;
     }
+
 }

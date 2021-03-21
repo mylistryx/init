@@ -19,7 +19,7 @@ class PasswordResetForm extends Model
 {
     public string $password = '';
 
-    private string $token;
+    public string $token;
 
 
     /**
