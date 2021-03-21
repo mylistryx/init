@@ -12,11 +12,11 @@ use yii\base\Model;
  */
 class ContactForm extends Model
 {
-    public ?string $name = null;
-    public ?string $email = null;
-    public ?string $subject = null;
-    public ?string $body = null;
-    public ?string $verifyCode = null;
+    public string $name = '';
+    public string $email = '';
+    public string $subject = '';
+    public string $body = '';
+    public string $verifyCode = '';
 
 
     /**
@@ -37,11 +37,11 @@ class ContactForm extends Model
     public function attributeLabels(): array
     {
         return [
-            'name'       => 'Name',
-            'email'      => 'Email',
-            'subject'    => 'Subject',
-            'body'       => 'Body',
-            'verifyCode' => 'Verification Code',
+            'name'       => Yii::t('form.contact', 'Name'),
+            'email'      => Yii::t('form.contact', 'Email'),
+            'subject'    => Yii::t('form.contact', 'Subject'),
+            'body'       => Yii::t('form.contact', 'Body'),
+            'verifyCode' => Yii::t('form.contact', 'Verification Code'),
         ];
     }
 

@@ -148,6 +148,15 @@ trait IdentityTrait
     }
 
     /**
+     * Generates access token for API auth
+     * @throws Exception
+     */
+    public function generateAccessToken()
+    {
+        $this->access_token = Yii::$app->security->generateRandomString();
+    }
+
+    /**
      * Generates new password reset token
      * @throws Exception
      */

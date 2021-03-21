@@ -11,12 +11,12 @@ use yii\base\Model;
 class VerifyEmailForm extends Model
 {
     /**
-     * @var ?string
+     * @var string
      */
-    public ?string $token = null;
+    public string $token = '';
 
     /**
-     * @var ?User
+     * @var User|null
      */
     private ?User $_user;
 
@@ -27,7 +27,7 @@ class VerifyEmailForm extends Model
      * @param string $token
      * @param array $config name-value pairs that will be used to initialize the object properties
      */
-    public function __construct($token, array $config = [])
+    public function __construct($token = '', array $config = [])
     {
         if (empty($token) || !is_string($token)) {
             throw new InvalidArgumentException('Verify email token cannot be blank.');
