@@ -35,7 +35,7 @@ class LoginFormTest extends Unit
     {
         $model = new LoginForm(
             [
-                'username' => 'not_existing_username',
+                'email'    => 'not_existing_username',
                 'password' => 'not_existing_password',
             ]
         );
@@ -48,7 +48,7 @@ class LoginFormTest extends Unit
     {
         $model = new LoginForm(
             [
-                'username' => 'bayer.hudson',
+                'email'    => 'sfriesen@jenkins.info',
                 'password' => 'wrong_password',
             ]
         );
@@ -63,7 +63,7 @@ class LoginFormTest extends Unit
     {
         $model = new LoginForm(
             [
-                'username'   => 'erau',
+                'email'      => 'sfriesen@jenkins.info',
                 'password'   => 'password_0',
                 'rememberMe' => true,
             ]

@@ -64,7 +64,6 @@ class VerifyEmailCest
         $I->seeRecord(
             User::class,
             [
-                'username' => 'test.test',
                 'email'    => 'test@mail.com',
                 'status'   => User::STATUS_ACTIVE,
             ]

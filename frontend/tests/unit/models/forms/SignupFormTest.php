@@ -33,7 +33,6 @@ class SignupFormTest extends Unit
     {
         $model = new SignupForm(
             [
-                'username' => 'some_username',
                 'email'    => 'some_email@example.com',
                 'password' => 'some_password',
             ]
@@ -46,7 +45,6 @@ class SignupFormTest extends Unit
         $user = $this->tester->grabRecord(
             User::class,
             [
-                'username' => 'some_username',
                 'email'    => 'some_email@example.com',
                 'status'   => User::STATUS_INACTIVE,
             ]
@@ -67,18 +65,14 @@ class SignupFormTest extends Unit
     {
         $model = new SignupForm(
             [
-                'username' => 'troy.becker',
                 'email'    => 'nicolas.dianna@hotmail.com',
                 'password' => 'some_password',
             ]
         );
 
         expect($model->signup())->toBeFalse();
-        expect($model->getErrors())->arrayToHaveKey('username');
         expect($model->getErrors())->arrayToHaveKey('email');
 
-        expect($model->getFirstError('username'))
-            ->stringToContainString('This username has already been taken.');
         expect($model->getFirstError('email'))
             ->stringToContainString('This email address has already been taken.');
     }

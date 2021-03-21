@@ -31,7 +31,7 @@ class LoginCest
     protected function formParams($login, $password): array
     {
         return [
-            'LoginForm[username]' => $login,
+            'LoginForm[email]'    => $login,
             'LoginForm[password]' => $password,
         ];
     }
@@ -39,26 +39,26 @@ class LoginCest
     public function checkEmpty(FunctionalTester $I): void
     {
         $I->submitForm('#login-form', $this->formParams('', ''));
-        $I->seeValidationError('Username cannot be blank.');
+        $I->seeValidationError('Email cannot be blank.');
         $I->seeValidationError('Password cannot be blank.');
     }
 
     public function checkWrongPassword(FunctionalTester $I): void
     {
-        $I->submitForm('#login-form', $this->formParams('admin', 'wrong'));
-        $I->seeValidationError('Incorrect username or password.');
+        $I->submitForm('#login-form', $this->formParams('sfriesen@jenkins.info', 'wrong'));
+        $I->seeValidationError('Incorrect email or password.');
     }
 
     public function checkInactiveAccount(FunctionalTester $I): void
     {
-        $I->submitForm('#login-form', $this->formParams('test.test', 'Test1234'));
-        $I->seeValidationError('Incorrect username or password');
+        $I->submitForm('#login-form', $this->formParams('test@mail.com', 'Test1234'));
+        $I->seeValidationError('Incorrect email or password');
     }
 
     public function checkValidLogin(FunctionalTester $I): void
     {
-        $I->submitForm('#login-form', $this->formParams('erau', 'password_0'));
-        $I->seeLink('Logout (erau)', 'site/logout');
+        $I->submitForm('#login-form', $this->formParams('sfriesen@jenkins.info', 'password_0'));
+        $I->seeLink('Logout (sfriesen@jenkins.info)', 'site/logout');
         $I->dontSeeLink('Login', 'site/login');
         $I->dontSeeLink('Signup', 'site/signup');
     }

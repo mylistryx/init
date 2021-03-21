@@ -23,7 +23,7 @@ class AuthCest
         $I->sendPost(
             'site/login',
             [
-                'username' => 'erau',
+                'email'    => 'sfriesen@jenkins.info',
                 'password' => 'password_1',
             ]
         );
@@ -37,7 +37,7 @@ class AuthCest
         $I->sendPost(
             'site/login',
             [
-                'username' => 'erau',
+                'email'    => 'sfriesen@jenkins.info',
                 'password' => 'password_0',
             ]
         );

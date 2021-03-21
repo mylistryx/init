@@ -25,9 +25,9 @@ NavBar::begin(
             [
                 'label'       => Yii::$app->user->isGuest ? '' : Yii::t(
                     'app',
-                    'Logout ({username})',
+                    'Logout ({email})',
                     [
-                        'username' => Yii::$app->user->identity->username,
+                        'email' => Yii::$app->user->identity->email,
                     ]
                 ),
                 'visible'     => !Yii::$app->user->isGuest,

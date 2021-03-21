@@ -76,7 +76,6 @@ class ResendVerificationEmailCest
             User::class,
             [
                 'email'    => 'test@mail.com',
-                'username' => 'test.test',
                 'status'   => User::STATUS_INACTIVE,
             ]
         );

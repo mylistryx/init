@@ -61,7 +61,6 @@ class VerifyEmailFormTest extends Unit
         $user = $model->verifyEmail();
         expect($user)->toBeInstanceOf(User::class);
 
-        expect($user->username)->stringToContainString('test.test');
         expect($user->email)->stringToContainString('test@mail.com');
         expect($user->status)->toEqual(User::STATUS_ACTIVE);
         expect($user->validatePassword('Test1234'))->toBeTrue();

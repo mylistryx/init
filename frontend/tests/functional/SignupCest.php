@@ -22,7 +22,6 @@ class SignupCest
         $I->see('Signup', 'h1');
         $I->see('Please fill out the following fields to signup:');
         $I->submitForm($this->formId, []);
-        $I->seeValidationError('Username cannot be blank.');
         $I->seeValidationError('Email cannot be blank.');
         $I->seeValidationError('Password cannot be blank.');
     }
@@ -32,12 +31,10 @@ class SignupCest
         $I->submitForm(
             $this->formId,
             [
-                'SignupForm[username]' => 'tester',
                 'SignupForm[email]'    => 'ttttt',
                 'SignupForm[password]' => 'tester_password',
             ]
         );
-        $I->dontSee('Username cannot be blank.', '.invalid-feedback');
         $I->dontSee('Password cannot be blank.', '.invalid-feedback');
         $I->see('Email is not a valid email address.', '.invalid-feedback');
     }
@@ -47,7 +44,6 @@ class SignupCest
         $I->submitForm(
             $this->formId,
             [
-                'SignupForm[username]' => 'tester',
                 'SignupForm[email]'    => 'tester.email@example.com',
                 'SignupForm[password]' => 'tester_password',
             ]
@@ -56,7 +52,6 @@ class SignupCest
         $I->seeRecord(
             User::class,
             [
-                'username' => 'tester',
                 'email'    => 'tester.email@example.com',
                 'status'   => User::STATUS_INACTIVE,
             ]

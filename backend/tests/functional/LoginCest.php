@@ -32,10 +32,10 @@ class LoginCest
     public function loginUser(FunctionalTester $I): void
     {
         $I->amOnPage(['site/login']);
-        $I->fillField('Username', 'erau');
+        $I->fillField('Email', 'sfriesen@jenkins.info');
         $I->fillField('Password', 'password_0');
         $I->click('login-button');
 
-        $I->seeLink('Logout (erau)', 'site/logout');
+        $I->seeLink('Logout (sfriesen@jenkins.info)', 'site/logout');
     }
 }
