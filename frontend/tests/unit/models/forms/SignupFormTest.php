@@ -7,7 +7,7 @@ namespace frontend\tests\unit\models\forms;
 use Codeception\Test\Unit;
 use common\fixtures\UserFixture;
 use common\models\User;
-use frontend\models\forms\SignupForm;
+use frontend\models\forms\SignupRequestForm;
 use frontend\tests\UnitTester;
 use Yii;
 use yii\mail\MessageInterface;
@@ -31,7 +31,7 @@ class SignupFormTest extends Unit
 
     public function testCorrectSignup(): void
     {
-        $model = new SignupForm(
+        $model = new SignupRequestForm(
             [
                 'email'    => 'some_email@example.com',
                 'password' => 'some_password',
@@ -63,7 +63,7 @@ class SignupFormTest extends Unit
 
     public function testNotCorrectSignup(): void
     {
-        $model = new SignupForm(
+        $model = new SignupRequestForm(
             [
                 'email'    => 'nicolas.dianna@hotmail.com',
                 'password' => 'some_password',

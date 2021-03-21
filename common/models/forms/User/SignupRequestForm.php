@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace frontend\models\forms;
+namespace common\models\forms\User;
 
 use Yii;
 use yii\base\Exception;
@@ -12,7 +12,7 @@ use common\models\User;
 /**
  * Signup form
  */
-class SignupForm extends Model
+class SignupRequestForm extends Model
 {
     public string $email = '';
     public string $password = '';

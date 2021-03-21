@@ -7,10 +7,10 @@ namespace frontend\controllers;
 use common\components\Actions\LanguageAction;
 use frontend\models\forms\ContactForm;
 use frontend\models\forms\PasswordResetRequestForm;
-use frontend\models\forms\ResendVerificationEmailForm;
-use frontend\models\forms\ResetPasswordForm;
-use frontend\models\forms\SignupForm;
-use frontend\models\forms\VerifyEmailForm;
+use frontend\models\forms\SignupRequestResend;
+use frontend\models\forms\PasswordResetForm;
+use frontend\models\forms\SignupRequestForm;
+use frontend\models\forms\SignupComplete;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\captcha\CaptchaAction;
@@ -18,7 +18,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\forms\LoginForm;
+use common\models\forms\UserLoginForm;
 use yii\web\ErrorAction;
 use yii\web\Response;
 
@@ -96,7 +96,7 @@ final class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        $model = new UserLoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
@@ -165,7 +165,7 @@ final class SiteController extends Controller
      */
     public function actionSignup()
     {
-        $model = new SignupForm();
+        $model = new SignupRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
@@ -215,7 +215,7 @@ final class SiteController extends Controller
     public function actionResetPassword(string $token)
     {
         try {
-            $model = new ResetPasswordForm($token);
+            $model = new PasswordResetForm($token);
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
@@ -244,7 +244,7 @@ final class SiteController extends Controller
     public function actionVerifyEmail(string $token): Response
     {
         try {
-            $model = new VerifyEmailForm($token);
+            $model = new SignupComplete($token);
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
@@ -266,7 +266,7 @@ final class SiteController extends Controller
      */
     public function actionResendVerificationEmail()
     {
-        $model = new ResendVerificationEmailForm();
+        $model = new SignupRequestResend();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');

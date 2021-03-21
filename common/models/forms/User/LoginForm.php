@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace common\models\forms;
+namespace common\models\forms\User;
 
 use common\models\User;
 use Yii;

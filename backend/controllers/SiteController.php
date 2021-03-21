@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use common\models\forms\LoginForm;
+use common\models\forms\UserLoginForm;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -79,7 +79,7 @@ class SiteController extends Controller
 
         $this->layout = 'blank';
 
-        $model = new LoginForm();
+        $model = new UserLoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {

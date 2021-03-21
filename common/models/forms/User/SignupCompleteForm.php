@@ -2,24 +2,23 @@
 
 declare(strict_types=1);
 
-namespace frontend\models\forms;
+namespace common\models\forms\User;
 
 use common\models\User;
 use yii\base\InvalidArgumentException;
 use yii\base\Model;
 
-class VerifyEmailForm extends Model
+/**
+ * Class UserSignupCompleteForm
+ *
+ * @property-read null|User $user
+ */
+class SignupCompleteForm extends Model
 {
     /**
      * @var string
      */
-    public string $token = '';
-
-    /**
-     * @var User|null
-     */
-    private ?User $_user;
-
+    public string $token;
 
     /**
      * Creates a form model with given token.
@@ -32,22 +31,24 @@ class VerifyEmailForm extends Model
         if (empty($token) || !is_string($token)) {
             throw new InvalidArgumentException('Verify email token cannot be blank.');
         }
-        $this->_user = User::findByVerificationToken($token);
-        if (!$this->_user) {
+
+        $this->token = $token;
+
+        if (!$this->user) {
             throw new InvalidArgumentException('Wrong verify email token.');
         }
         parent::__construct($config);
     }
 
     /**
-     * Verify email
-     *
-     * @return User|null the saved model or null if saving fails
+     * @return User|null
      */
-    public function verifyEmail(): ?User
+    public function getUser(): ?User
     {
-        $user = $this->_user;
-        $user->status = User::STATUS_ACTIVE;
-        return $user->save(false) ? $user : null;
+        static $user;
+        if ($user === null) {
+            $user = User::findByVerificationToken($this->token);
+        }
+        return $user;
     }
 }

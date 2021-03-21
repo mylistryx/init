@@ -7,7 +7,7 @@ namespace frontend\tests\unit\models\forms;
 
 use Codeception\Test\Unit;
 use common\fixtures\UserFixture;
-use frontend\models\forms\ResendVerificationEmailForm;
+use frontend\models\forms\SignupRequestResend;
 use frontend\tests\UnitTester;
 use Yii;
 use yii\mail\MessageInterface;
@@ -31,7 +31,7 @@ class ResendVerificationEmailFormTest extends Unit
 
     public function testWrongEmailAddress(): void
     {
-        $model = new ResendVerificationEmailForm();
+        $model = new SignupRequestResend();
         $model->attributes = [
             'email' => 'aaa@bbb.cc',
         ];
@@ -43,7 +43,7 @@ class ResendVerificationEmailFormTest extends Unit
 
     public function testEmptyEmailAddress(): void
     {
-        $model = new ResendVerificationEmailForm();
+        $model = new SignupRequestResend();
         $model->attributes = [
             'email' => '',
         ];
@@ -55,7 +55,7 @@ class ResendVerificationEmailFormTest extends Unit
 
     public function testResendToActiveUser(): void
     {
-        $model = new ResendVerificationEmailForm();
+        $model = new SignupRequestResend();
         $model->attributes = [
             'email' => 'test2@mail.com',
         ];
@@ -67,7 +67,7 @@ class ResendVerificationEmailFormTest extends Unit
 
     public function testSuccessfullyResend(): void
     {
-        $model = new ResendVerificationEmailForm();
+        $model = new SignupRequestResend();
         $model->attributes = [
             'email' => 'test@mail.com',
         ];

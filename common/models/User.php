@@ -1,10 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace common\models;
 
+use common\components\Entity\AggregateRootInterface;
+use common\components\Entity\EventTrait;
+use common\events\User\SignupRequestEvent;
 use common\models\query\UserQuery;
 use common\traits\IdentityTrait;
 use Yii;
+use yii\base\Exception;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
@@ -27,9 +33,10 @@ use yii\web\IdentityInterface;
  *
  * @mixin TimestampBehavior
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface, AggregateRootInterface
 {
     use IdentityTrait;
+    use EventTrait;
 
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
@@ -131,5 +138,24 @@ class User extends ActiveRecord implements IdentityInterface
     public static function find(): UserQuery
     {
         return new UserQuery(get_called_class());
+    }
+
+    /**
+     * Create new user
+     * @param string $email
+     * @param string $password
+     * @return static
+     * @throws Exception
+     */
+    public static function create(string $email, string $password): self
+    {
+        $user = new static();
+        $user->email = $email;
+        $user->setPassword($password);
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        $user->generateAccessToken();
+        $user->recordEvent(new SignupRequestEvent($user));
+        return $user;
     }
 }

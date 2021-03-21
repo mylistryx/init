@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace api\controllers;
 
-use common\models\forms\LoginForm;
+use common\models\forms\UserLoginForm;
 use common\models\User;
 use Yii;
 use yii\rest\Controller;
@@ -26,7 +26,7 @@ class SiteController extends Controller
      */
     public function actionLogin(): User
     {
-        $model = new LoginForm();
+        $model = new UserLoginForm();
         if ($model->load(Yii::$app->request->post(), '') && $model->validate()) {
             return $model->getUser();
         }

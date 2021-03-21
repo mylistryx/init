@@ -2,10 +2,10 @@
 /**
  * @var $this View
  * @var $form ActiveForm
- * @var $model SignupForm
+ * @var $model SignupRequestForm
  */
 
-use frontend\models\forms\SignupForm;
+use frontend\models\forms\SignupRequestForm;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\web\View;

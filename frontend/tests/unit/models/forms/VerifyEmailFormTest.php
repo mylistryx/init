@@ -7,7 +7,7 @@ namespace frontend\tests\unit\models\forms;
 use Codeception\Test\Unit;
 use common\fixtures\UserFixture;
 use common\models\User;
-use frontend\models\forms\VerifyEmailForm;
+use frontend\models\forms\SignupComplete;
 use frontend\tests\UnitTester;
 use yii\base\InvalidArgumentException;
 
@@ -33,14 +33,14 @@ class VerifyEmailFormTest extends Unit
         $this->tester->expectThrowable(
             InvalidArgumentException::class,
             function () {
-                new VerifyEmailForm('');
+                new SignupComplete('');
             }
         );
 
         $this->tester->expectThrowable(
             InvalidArgumentException::class,
             function () {
-                new VerifyEmailForm('notexistingtoken_1391882543');
+                new SignupComplete('notexistingtoken_1391882543');
             }
         );
     }
@@ -50,14 +50,14 @@ class VerifyEmailFormTest extends Unit
         $this->tester->expectThrowable(
             InvalidArgumentException::class,
             function () {
-                new VerifyEmailForm('already_used_token_1548675330');
+                new SignupComplete('already_used_token_1548675330');
             }
         );
     }
 
     public function testVerifyCorrectToken(): void
     {
-        $model = new VerifyEmailForm('4ch0qbfhvWwkcuWqjN8SWRq72SOw1KYT_1548675330');
+        $model = new SignupComplete('4ch0qbfhvWwkcuWqjN8SWRq72SOw1KYT_1548675330');
         $user = $model->verifyEmail();
         expect($user)->toBeInstanceOf(User::class);
 
